@@ -84,7 +84,7 @@ class CommandHandler {
                 console.log(`[SUCCESS] CommandHandler: Loaded extra command: '${cmdFile[cmd].name}'`);
 
                 // aliases
-                if (cmd.alias) {
+                if (cmdFile[cmd].alias) {
                     for (let alias of cmdFile[cmd].alias) {
                         this.aliases.set(alias, cmdFile[cmd].name);
                     }
@@ -115,7 +115,7 @@ class CommandHandler {
 
         if (!prefixExists) return null;
 
-        let command = string.substring(prefix.length);
+        let command = string.split(" ")[0].substring(prefix.length);
         let cmd = this.commands.get(command);
 
         if (!cmd) {
