@@ -19,6 +19,7 @@ module.exports = async (client, message) => {
                 message.channel.send(cmd.output.with.replace("{author}", message.author.username).replace("{user}", args.join(" ")));   
             }
         } else {
+            if (cmd.ownerOnly && !index.CH.owner.includes(message.author.id)) return message.channel.send(`**${message.author.username}**, diesen Command können nur die Bot-Owner ausführen.`);
             cmd.run(client, message, args);
         }
     } catch (err) {
