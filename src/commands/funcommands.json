@@ -1,0 +1,17 @@
+{
+    "cuddle": {
+        "name": "cuddle",
+        "alias": ["knuddel"],
+        "output": {
+            "without": "\\*cuddles **{author}**\\*",
+            "with": "\\*{author} cuddles **{user}**\\*"
+        }
+    },
+    "pat": {
+        "name": "pat",
+        "output": {
+            "without": "\\*pats **{author}**\\*",
+            "with": "\\*{author} pats **{user}**\\*"
+        }
+    }
+}
