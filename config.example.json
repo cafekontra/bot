@@ -1,4 +1,5 @@
 {
     "token": "TOKEN",
-    "prefix": "PREFIX"
+    "prefix": "PREFIX",
+    "owner": ["OWNER ID"]
 }
