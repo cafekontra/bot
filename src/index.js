@@ -13,5 +13,8 @@ client.login(config.token).catch(err => console.log(`[ERROR] Error occured while
 
 module.exports.CH = new CommandHandler({
     folder:  `${__dirname}/commands/`,
-    prefix: config.prefix
+    prefix: config.prefix,
+    owner: config.owner
 });
+
+module.exports.config = config;
