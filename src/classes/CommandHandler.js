@@ -20,7 +20,12 @@ class CommandHandler {
         this.prefix = data.prefix; // multiple prefixes (array)
 
         // load commands
+        console.log('[INFO] Loading commands...');
+        console.log('');
         this._loadCommands(data.folder);
+        console.log('')
+        this._loadFunCommands(data.folder);
+        console.log('');
 
     }
 
@@ -61,8 +66,31 @@ class CommandHandler {
         this.commands = commands;
         this.aliases = aliases;
 
-        console.log('');
+    }
 
+    _loadFunCommands(folder) {
+        let files = fs.readdirSync(folder);
+        files.filter(f => fs.statSync(`${folder}${f}`).isDirectory()).forEach(nested => fs.readdirSync(`${folder}${nested}`).forEach(f => files.push(`${nested}/${f}`)));
+        let jsonfiles = files.filter(f => f.endsWith('.json'));
+
+        if (files.length <= 0) console.log(`[ERROR] CommandHandler: No extra commands to load.`);
+        console.log(`[INFO] Found ${jsonfiles.length} extra command files to load!`);
+
+        for (const f of jsonfiles) {
+            let cmdFile = require(`${folder}${f}`);
+            
+            for (let cmd in cmdFile) {
+                this.commands.set(cmdFile[cmd].name, cmdFile[cmd]);
+                console.log(`[SUCCESS] CommandHandler: Loaded extra command: '${cmdFile[cmd].name}'`);
+
+                // aliases
+                if (cmd.alias) {
+                    for (let alias of cmdFile[cmd].alias) {
+                        this.aliases.set(alias, cmdFile[cmd].name);
+                    }
+                }
+            }
+        }
     }
 
     /**
