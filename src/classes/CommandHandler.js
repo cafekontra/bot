@@ -19,6 +19,8 @@ class CommandHandler {
         data.prefix.sort();
         this.prefix = data.prefix; // multiple prefixes (array)
 
+        if (data.owner) this.owner = data.owner;
+
         // load commands
         console.log('[INFO] Loading commands...');
         console.log('');
